@@ -1,0 +1,1 @@
+Ackee analytics component for Svelte
