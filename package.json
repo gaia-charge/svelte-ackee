@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gennaromartone/svelte-ackee.git"
+    "url": "git+https://github.com/gaia-green-tech/svelte-ackee.git"
   },
   "keywords": [
     "Ackee",
@@ -17,9 +17,9 @@
   "author": "Gennaro Martone",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gennaromartone/svelte-ackee/issues"
+    "url": "https://github.com/gaia-green-tech/svelte-ackee/issues"
   },
-  "homepage": "https://github.com/gennaromartone/svelte-ackee#readme",
+  "homepage": "https://github.com/gaia-green-tech/svelte-ackee#readme",
   "dependencies": {
     "ackee-tracker": "^4.2.0",
     "svelte": "^3.31.0"
