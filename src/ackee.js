@@ -1,23 +1,20 @@
-'use strict'
+"use strict";
 
-const ackeeTracker = require('ackee-tracker');
-const { writable } = require('svelte/store')
+const ackeeTracker = require("ackee-tracker");
+const { writable } = require("svelte/store");
 
 let hasChanged = false;
 
 const locationStore = writable({
-  current:  undefined,
+  current: undefined,
   previous: undefined,
 });
 
-
-locationStore.subscribe( l => {
-  if ( (!l.previous || !l.current) || (l.previous.pathname !== l.current.pathname)) 
+locationStore.subscribe((l) => {
+  if (!l.previous || !l.current || l.previous.pathname !== l.current.pathname)
     hasChanged = true;
-  else
-    hasChanged = false;
-
-})
+  else hasChanged = false;
+});
 
 /**
  * Use Ackee in Svelte and Sapper.
@@ -28,7 +25,7 @@ locationStore.subscribe( l => {
  * @param {Object} server - Server details.
  * @param {?Object} opts - Ackee options.
  */
-const useAckeeSapper = function(beforeUpdate, afterUpdate, server, opts = {}) {
+const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
   let currentInstance = ackeeTracker.create(server, opts);
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
@@ -40,20 +37,21 @@ const useAckeeSapper = function(beforeUpdate, afterUpdate, server, opts = {}) {
       });
     }
   });
+
   afterUpdate(() => {
     if (hasChanged) {
-      let path = window.location.pathname
+      let path = window.location.pathname;
 
-      const attributes = ackeeTracker.attributes(opts.detailed)
-      const url = new URL(path, location)
+      const attributes = ackeeTracker.attributes(opts.detailed);
+      const url = new URL(path, location);
 
       currentInstance.record({
         ...attributes,
-        siteLocation: url.href
-      }).stop
+        siteLocation: url.href,
+      }).stop;
     }
   });
-}
+};
 
 /**
  * Use Ackee in Svelte with Routify.
@@ -63,11 +61,10 @@ const useAckeeSapper = function(beforeUpdate, afterUpdate, server, opts = {}) {
  * @param {Object} server - Server details.
  * @param {?Object} opts - Ackee options.
  */
-const useAckeeSvelte = function( afterPageLoad, server, opts = {}){
-  let currentInstance = ackeeTracker.create(server, opts)
-	
-	afterPageLoad(page => {
+const useAckeeSvelte = function (afterPageLoad, server, opts = {}) {
+  let currentInstance = ackeeTracker.create(server, opts);
 
+  afterPageLoad((page) => {
     if (typeof window !== "undefined") {
       locationStore.update((l) => {
         return {
@@ -77,24 +74,20 @@ const useAckeeSvelte = function( afterPageLoad, server, opts = {}){
       });
     }
     if (hasChanged) {
-  		
-      let path = window.location.pathname
+      let path = window.location.pathname;
 
-      const attributes = ackeeTracker.attributes(opts.detailed)
-      const url = new URL(path, location)
+      const attributes = ackeeTracker.attributes(opts.detailed);
+      const url = new URL(path, location);
 
       currentInstance.record({
         ...attributes,
-        siteLocation: url.href
-      }).stop
-
+        siteLocation: url.href,
+      }).stop;
     }
-
-	})
-	
-}
+  });
+};
 
 module.exports = {
   useAckeeSapper,
-  useAckeeSvelte
+  useAckeeSvelte,
 };
