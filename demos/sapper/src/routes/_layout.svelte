@@ -1,17 +1,16 @@
 <script>
 	import Nav from '../components/Nav.svelte';
 	import { afterUpdate , beforeUpdate} from "svelte";
-	// import {useAckeeSapper} from './../ackee.js';
-	import {useAckeeSapper} from 'svelte-ackee';
+	import { useAckeeSapper } from 'svelte-ackee';
 
 	export let segment;
 
-	useAckeeSapper(beforeUpdate,afterUpdate, {
+	useAckeeSapper(beforeUpdate, afterUpdate, {
 		server: 'https://example.com',
 		domainId: 'hd11f820-68a1-11e6-8047-79c0c2d9bce0'
 	}, {
 		ignoreLocalhost: false
-	})
+	});
 </script>
 
 <style>
