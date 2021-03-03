@@ -4,7 +4,7 @@
   "description": "Use Ackee in Svelte",
   "main": "src/ackee.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier --write **/*.{js,md,svelte}"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
   "dependencies": {
     "ackee-tracker": "^4.2.0",
     "svelte": "^3.31.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.2.0"
   }
 }
