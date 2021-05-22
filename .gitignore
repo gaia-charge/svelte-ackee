@@ -13,4 +13,4 @@ yarn-error.log
 /demos/routify/.netlify
 /demos/routify/assets/build
 /demos/routify/.vercel
-
+*.tgz
