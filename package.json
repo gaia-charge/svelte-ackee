@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/gaia-green-tech/svelte-ackee#readme",
   "dependencies": {
-    "ackee-tracker": "^4.2.0",
+    "ackee-tracker": "^5.1.0",
     "svelte": "^3.31.0"
   },
   "devDependencies": {
