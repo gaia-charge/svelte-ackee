@@ -24,6 +24,7 @@ locationStore.subscribe((l) => {
  * @param {?String} pathname - Current path.
  * @param {Object} server - Server details.
  * @param {?Object} opts - Ackee options.
+ * @returns {Object} ackee-tracker instance.
  */
 const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
   let currentInstance = ackeeTracker.create(server, opts);
@@ -51,6 +52,8 @@ const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
       }).stop;
     }
   });
+
+  return currentInstance;
 };
 
 /**
@@ -60,6 +63,7 @@ const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
  * @param {?String} pathname - Current path.
  * @param {Object} server - Server details.
  * @param {?Object} opts - Ackee options.
+ * @returns {Object} ackee-tracker instance.
  */
 const useAckeeSvelte = function (afterPageLoad, server, opts = {}) {
   let currentInstance = ackeeTracker.create(server, opts);
@@ -85,6 +89,8 @@ const useAckeeSvelte = function (afterPageLoad, server, opts = {}) {
       }).stop;
     }
   });
+
+  return currentInstance;
 };
 
 module.exports = {
