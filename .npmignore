@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+yarn-error.log
+cypress
+demos
+img
+.github
+*.tgz
