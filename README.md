@@ -26,7 +26,7 @@ import { useAckeeSapper } from "svelte-ackee";
 
 export let segment;
 
-useAckeeSapper(
+const ackeeTracker = useAckeeSapper(
   beforeUpdate,
   afterUpdate,
   {
@@ -49,7 +49,7 @@ Edit the `App.svelte` and add following:
 import { useAckeeSvelte } from "svelte-ackee";
 import { afterPageLoad } from "@roxi/routify";
 
-useAckeeSvelte(
+const ackeeTracker = useAckeeSvelte(
   $afterPageLoad,
   {
     server: "https://example.com",
@@ -62,3 +62,14 @@ useAckeeSvelte(
 ```
 
 See the demo in [`demos/routify`](demos/routify) directory.
+
+### Accessing underlying `ackee-tracker`
+
+Both `useAckeeSapper` and `useAckeeSvelte` return an [`ackee-tracker` instance](https://github.com/electerious/ackee-tracker) so you can call it manually as well:
+
+```js
+ackeeTracker.action("513a082c-2cd5-4939-b417-72da2fe1761d", {
+  key: "Checkout",
+  value: 9.99,
+});
+```
