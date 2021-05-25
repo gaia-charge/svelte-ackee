@@ -28,7 +28,12 @@ locationStore.subscribe((l) => {
  * @param {?Object} opts - Ackee options.
  * @returns {Object} ackee-tracker instance.
  */
-const useAckeeSapper = function (beforeUpdate, afterUpdate, {server, domainId}, opts = {}) {
+const useAckeeSapper = function (
+  beforeUpdate,
+  afterUpdate,
+  { server, domainId },
+  opts = {}
+) {
   let currentInstance = ackeeTracker.create(server, opts);
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
@@ -69,7 +74,11 @@ const useAckeeSapper = function (beforeUpdate, afterUpdate, {server, domainId}, 
  * @param {?Object} opts - Ackee options.
  * @returns {Object} ackee-tracker instance.
  */
-const useAckeeSvelte = function (afterPageLoad, {server, domainId}, opts = {}) {
+const useAckeeSvelte = function (
+  afterPageLoad,
+  { server, domainId },
+  opts = {}
+) {
   let currentInstance = ackeeTracker.create(server, opts);
 
   afterPageLoad((page) => {
