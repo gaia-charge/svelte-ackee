@@ -22,11 +22,18 @@ locationStore.subscribe((l) => {
  * * @param {?Function} beforeUpdate - Svelte component life cycle event.
  * * @param {?Function} afterUpdate - Svelte component life cycle event.
  * @param {?String} pathname - Current path.
- * @param {Object} server - Server details.
+ * @param {Object} config - Configuration.
+ * @param {String} config.server - Server URL.
+ * @param {String} config.domainId - Id of the domain.
  * @param {?Object} opts - Ackee options.
  * @returns {Object} ackee-tracker instance.
  */
-const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
+const useAckeeSapper = function (
+  beforeUpdate,
+  afterUpdate,
+  { server, domainId },
+  opts = {}
+) {
   let currentInstance = ackeeTracker.create(server, opts);
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
@@ -46,7 +53,7 @@ const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
       const attributes = ackeeTracker.attributes(opts.detailed);
       const url = new URL(path, location);
 
-      currentInstance.record({
+      currentInstance.record(domainId, {
         ...attributes,
         siteLocation: url.href,
       }).stop;
@@ -61,11 +68,17 @@ const useAckeeSapper = function (beforeUpdate, afterUpdate, server, opts = {}) {
  * Creates an instance once and a new record every time the pathname changes.
  * * @param {?Function} afterPageLoad - Routify event.
  * @param {?String} pathname - Current path.
- * @param {Object} server - Server details.
+ * @param {Object} config - Configuration.
+ * @param {String} config.server - Server URL.
+ * @param {String} config.domainId - Id of the domain.
  * @param {?Object} opts - Ackee options.
  * @returns {Object} ackee-tracker instance.
  */
-const useAckeeSvelte = function (afterPageLoad, server, opts = {}) {
+const useAckeeSvelte = function (
+  afterPageLoad,
+  { server, domainId },
+  opts = {}
+) {
   let currentInstance = ackeeTracker.create(server, opts);
 
   afterPageLoad((page) => {
@@ -83,7 +96,7 @@ const useAckeeSvelte = function (afterPageLoad, server, opts = {}) {
       const attributes = ackeeTracker.attributes(opts.detailed);
       const url = new URL(path, location);
 
-      currentInstance.record({
+      currentInstance.record(domainId, {
         ...attributes,
         siteLocation: url.href,
       }).stop;
