@@ -1,8 +1,7 @@
-"use strict";
+import ackeeTracker from "ackee-tracker";
+import store from "svelte/store";
 
-const ackeeTracker = require("ackee-tracker");
-const { writable } = require("svelte/store");
-
+const { writable } = store;
 let hasChanged = false;
 
 const locationStore = writable({
@@ -105,8 +104,9 @@ const useAckeeSvelte = function (
 
   return currentInstance;
 };
-
-module.exports = {
+export { useAckeeSapper };
+export { useAckeeSvelte };
+export default {
   useAckeeSapper,
   useAckeeSvelte,
 };
