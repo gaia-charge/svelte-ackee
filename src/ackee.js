@@ -1,4 +1,4 @@
-import ackeeTracker from "ackee-tracker";
+import { create, attributes } from "ackee-tracker";
 import { writable } from "svelte/store";
 
 const setupLocationStore = function (callback) {
@@ -36,7 +36,7 @@ const useAckeeSapper = function (
 ) {
   let hasChanged = false;
   let locationStore = setupLocationStore((changed) => (hasChanged = changed));
-  let currentInstance = ackeeTracker.create(server, opts);
+  let currentInstance = create(server, opts);
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
       locationStore.update((l) => {
@@ -52,11 +52,11 @@ const useAckeeSapper = function (
     if (hasChanged) {
       let path = window.location.pathname;
 
-      const attributes = ackeeTracker.attributes(opts.detailed);
+      const attrs = attributes(opts.detailed);
       const url = new URL(path, location);
 
       currentInstance.record(domainId, {
-        ...attributes,
+        ...attrs,
         siteLocation: url.href,
       }).stop;
     }
@@ -83,7 +83,7 @@ const useAckeeSvelte = function (
 ) {
   let hasChanged = false;
   let locationStore = setupLocationStore((changed) => (hasChanged = changed));
-  let currentInstance = ackeeTracker.create(server, opts);
+  let currentInstance = create(server, opts);
 
   afterPageLoad((page) => {
     if (typeof window !== "undefined") {
@@ -97,11 +97,11 @@ const useAckeeSvelte = function (
     if (hasChanged) {
       let path = window.location.pathname;
 
-      const attributes = ackeeTracker.attributes(opts.detailed);
+      const attrs = attributes(opts.detailed);
       const url = new URL(path, location);
 
       currentInstance.record(domainId, {
-        ...attributes,
+        ...attrs,
         siteLocation: url.href,
       }).stop;
     }
