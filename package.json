@@ -1,6 +1,6 @@
 {
   "name": "svelte-ackee",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Use Ackee in Svelte",
   "main": "src/ackee.js",
   "type": "module",
