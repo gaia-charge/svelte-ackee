@@ -1,9 +1,7 @@
 import ackeeTracker from "ackee-tracker";
-import store from "svelte/store";
+import { writable } from "svelte/store";
 
 const setupLocationStore = function (callback) {
-  const { writable } = store;
-
   const locationStore = writable({
     current: undefined,
     previous: undefined,
