@@ -1,19 +1,22 @@
 import ackeeTracker from "ackee-tracker";
 import store from "svelte/store";
 
-const { writable } = store;
-let hasChanged = false;
+const setupLocationStore = function (callback) {
+  const { writable } = store;
 
-const locationStore = writable({
-  current: undefined,
-  previous: undefined,
-});
+  const locationStore = writable({
+    current: undefined,
+    previous: undefined,
+  });
 
-locationStore.subscribe((l) => {
-  if (!l.previous || !l.current || l.previous.pathname !== l.current.pathname)
-    hasChanged = true;
-  else hasChanged = false;
-});
+  locationStore.subscribe((l) => {
+    callback(
+      !l.previous || !l.current || l.previous.pathname !== l.current.pathname
+    );
+  });
+
+  return locationStore;
+};
 
 /**
  * Use Ackee in Svelte and Sapper.
@@ -33,6 +36,8 @@ const useAckeeSapper = function (
   { server, domainId },
   opts = {}
 ) {
+  let hasChanged = false;
+  let locationStore = setupLocationStore((changed) => (hasChanged = changed));
   let currentInstance = ackeeTracker.create(server, opts);
   beforeUpdate(() => {
     if (typeof window !== "undefined") {
@@ -78,6 +83,8 @@ const useAckeeSvelte = function (
   { server, domainId },
   opts = {}
 ) {
+  let hasChanged = false;
+  let locationStore = setupLocationStore((changed) => (hasChanged = changed));
   let currentInstance = ackeeTracker.create(server, opts);
 
   afterPageLoad((page) => {
